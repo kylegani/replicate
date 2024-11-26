@@ -1,18 +1,9 @@
-from cog import BasePredictor, Path, Input
-import torch
+from cog import BasePredictor, Input
 
 
 class Predictor(BasePredictor):
     def setup(self):
-        """Load the model into memory to make running multiple predictions efficient"""
-        self.net = torch.load("weights.pth")
+        self.prefix = "hello"
 
-    def predict(self,
-                image: Path = Input(description="Image to enlarge"),
-                scale: float = Input(description="Factor to scale image by", default=1.5)
-                ) -> Path:
-        """Run a single prediction on the model"""
-        # ... pre-processing ...
-        output = self.net(input)
-        # ... post-processing ...
-        return output
+    def predict(self, text: str = Input(description="Text to prefix with 'hello '")) -> str:
+        return self.prefix + " " + text
